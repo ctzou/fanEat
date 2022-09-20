@@ -1,5 +1,6 @@
 <%- include('partials/header.ejs') %>
 
+<span>hi login</span>
 <h2 class="page-title"><%= title %></h2>
 <div class="login-form">
     <form action="/login" method="POST">
@@ -13,6 +14,6 @@
     <div class="login-error"><%= error %></div>
 <% } %>
 
-<p align="center"><a href="/login/new-acct">No login? Create a new account.</a></p>
+<p align="center"><a href="/login/signup">No login? Create a new account.</a></p>
 
 <%- include('partials/footer.ejs') %>

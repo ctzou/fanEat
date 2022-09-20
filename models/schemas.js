@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+//const schema = mongoose.Schema;
+
 
 let menuSchema = new mongoose.Schema({
    name: {type:String, require: true},
@@ -7,14 +9,14 @@ let menuSchema = new mongoose.Schema({
    entryDate: {type:Date, default:Date.now},
 })
 
-let userSchema = new mongoose.Schema({
+let usersSchema = new mongoose.Schema({
    email: {type:String, require: true},
    password: {type:String, require: true},
    entryDate: {type:Date, default:Date.now},
 })
 
 let menu = mongoose.model('menu', menuSchema, 'memu');
-let users = mongoose.model('users', menuSchema, 'users');
+let users = mongoose.model('users', usersSchema, 'users');
 let mySchemas= {
    'menu': menu,
    'users': users,
