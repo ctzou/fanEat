@@ -50,7 +50,6 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create({mongoUrl: process.env.DB_STRING}),
     //store: new MongoStore({mongooseConnection: mongoose.connection}),
-    //store: MongoStore.create({mongoUrl: process.env.DB_STRING}),
   })
 );
 
