@@ -1,4 +1,4 @@
-const schemas =require('../models/schemas.js')
+const schemas =require('../models/schemas.js');
 
 module.exports={
     getIndex: function (req, res) {
@@ -26,7 +26,7 @@ module.exports={
         }
     },
     deleteMenu: async (req,res)=> {
-        let session= req.session
+        let session= req.session;
 
         if(!session.loggedIn) {
             res.redirect('/login')
@@ -80,18 +80,16 @@ module.exports={
             let searchResults= await menu.findOne(query)
             .then(async(userData)=>{
                 if(!userData) {
+                    //ok to add
                     let newMenu= new schemas.menu({
                         name: menuName,
                         icon: menuIcon,
                         menuUrl: menuUrl,
-                    })
+                    });
                     let saveMenu= await newMenu.save();
                 }
             })
-            res.redirect('/')        
+            res.redirect('/');
         }
-
-
     }
-
 }

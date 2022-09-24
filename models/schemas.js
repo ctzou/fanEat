@@ -15,8 +15,8 @@ let usersSchema = new mongoose.Schema({
    entryDate: {type:Date, default:Date.now},
 })
 
-let menu = mongoose.model('menu', menuSchema, 'memu');
-let users = mongoose.model('users', usersSchema, 'users');
+let menu = mongoose.model('menu', menuSchema, 'menuDB');
+let users = mongoose.model('users', usersSchema, 'usersDB');
 let mySchemas= {
    'menu': menu,
    'users': users,

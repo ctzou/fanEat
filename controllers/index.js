@@ -7,7 +7,7 @@ module.exports={
       
       let menuResult= await menu.find({})
       .then((menuData)=>{
-         res.render('index', {title: 'MenuTracker', data: menuData, search: '', loggedIn: session.loggedIn})
+         res.render('index', {title: 'MenuTracker', data: menuData, search: '', loggedIn: session.loggedIn});
       })
    },
    getSearch: async(req,res)=>{

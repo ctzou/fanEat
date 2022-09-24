@@ -54,8 +54,8 @@ app.use(
 );
 
 // Passport middleware
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Use flash messages for errors, info, ect...
 app.use(flash());
@@ -63,7 +63,7 @@ app.use(flash());
 //Setup Routes For Which The Server Is Listening
 app.use('/', indexRouter);
 app.use('/menu', menuRouter);
-app.use('login', loginRouter);
+app.use('/login', loginRouter);
 /*app.use("/", mainRoutes);
 app.use("/post", postRoutes);
 app.use("/comment", commentRoutes);*/
