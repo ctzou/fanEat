@@ -1,5 +1,7 @@
 <%- include('partials/header.ejs') %>
 <span>hi index</span>    
+  <div class="index-app-icon"><a href="/">
+    <img src="/images/logo.svg"></a></div>
     <form action="/q" method="POST" class="search-form" id="searchForm">
     <div class="input-group mb-3">
       <input type="text" class="form-control" name="searchInput" <% if (search != '') { %> value="<%= search %>" <% } %>>

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap');
 
 html, body {
-  background: rgb(239, 235, 224);
+  background: rgb(240, 233, 212);
   background-repeat: no-repeat;
   background-size: cover;
     font-family: 'Heebo', sans-serif
@@ -112,6 +112,15 @@ h5 span {
 
 img.icon-img, img.url-img {
   height: 60px;
+}
+
+/*index logo*/
+.index-app-icon {
+  text-align: center;
+}
+
+.index-app-icon img {
+  max-width: 80%;
 }
 
 .dropdown {
