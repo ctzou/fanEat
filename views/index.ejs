@@ -8,19 +8,10 @@
       <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-search"></i></button></div>
     </div>
     </form>
-    <div id="map"></div>
-    <!-- 
-     The `defer` attribute causes the callback to execute after the full HTML
-     document has been parsed. For non-blocking uses, avoiding race conditions,
-     and consistent behavior across browsers, consider loading using Promises
-     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
-    -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
-      defer
-    ></script>
+    <div class="d-flex flex-row justify-content-between mb-3" id="map"></div>
+
     
-    <% if (data != null && loggedIn) { data.forEach( item => { %>
+    <!--<% if (data != null && loggedIn) { data.forEach( item => { %>
     <div class="d-flex flex-row justify-content-between mb-3">
         <div class="d-flex flex-column p-3">
           <a href="<%= item.menuUrl %>" target="_blank"><img src="<%= item.icon %>" class="icon-img"></a>
@@ -39,8 +30,7 @@
             </span>
           </a>
         </div>
-    </div>
+    </div>-->
     <% }); } %>
-
 
 <%- include('partials/footer.ejs') %>

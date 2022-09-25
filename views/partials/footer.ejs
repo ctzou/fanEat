@@ -1,6 +1,18 @@
         </div>
     </div>
+        <!-- 
+     The `defer` attribute causes the callback to execute after the full HTML
+     document has been parsed. For non-blocking uses, avoiding race conditions,
+     and consistent behavior across browsers, consider loading using Promises
+     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+    -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=%GAPI_KEY%&callback=initMap&v=weekly"
+      defer
+    ></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=%REACT_APP_API_KEY%"></script>
+    -->
     </body>
     <img src="" alt="">
-    <span>Copyright</span>
+    <span>Copyright C.Tzou &copy;2022</span>
 </html>
