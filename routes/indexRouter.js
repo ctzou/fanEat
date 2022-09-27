@@ -6,6 +6,6 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //Main Routes - simplified for now
 router.get("/", indexController.getIndex);
-router.post('/query', indexController.getSearch);
+router.post('/search', indexController.getSearch);
 
 module.exports = router;

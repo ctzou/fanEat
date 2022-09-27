@@ -2,24 +2,19 @@
 <span>hi index</span>    
   <div class="index-app-icon"><a href="/">
     <img src="/images/logo2x3.svg"></a></div>
-    <form action="/query" method="POST" class="search-form" id="searchForm">
+    <form action="/search" method="POST" class="search-form" id="searchForm">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" name="searchInput" id="searchInput" placeholder="Type Address..." >
+      <input type="text" class="form-control" name="searchInput" id="search_input" placeholder="Type Address..." >
       <!--<% if (search != '') { %> value="<%= search %>" <% } %>-->
-      <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-search"></i></button></div>
+      <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-heart"></i></button></div>
     </div>
     </form>
-    <div class="form-group">
-      <label>Location:</label>
-      <input type="text" class="form-control" id="search_input" placeholder="Type address..." />
-     </div>
        </div>
      </div>
     <div class="input-group mb-3" id="map">
       <span>hi map</span></div>
       <script>
         const m = document.getElementById('map');
-      
         function initMap(data) {
           const options = {
             center: {
@@ -30,32 +25,25 @@
           }
           const map = new google.maps.Map(m, options);
           console.dir(data);
+          let searchInput = 'search_input';
+          
+          let autocomplete;
+          autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+            //types: ['establishment'],
+            componentRestrictions: {
+            country: "TW"
+            }
+          });
+            
+          google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var near_place = autocomplete.getPlace();
+          });
+          
         }
-
       </script>
       <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmY6mmgJxQnH8KMsyN6OwF6QPQUOIurIw&libraries=places&callback=initMap"
     ></script>
-    <script>
-      var searchInput = 'search_input';
-       
-      $(document).ready(function () {
-       var autocomplete;
-       autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-        types: ['geocode'],
-        /*componentRestrictions: {
-         country: "USA"
-        }*/
-       });
-        
-       google.maps.event.addListener(autocomplete, 'place_changed', function () {
-        var near_place = autocomplete.getPlace();
-       });
-      });
-      </script>
-
-
-    
     <!--<% if (data != null && loggedIn) { data.forEach( item => { %>
     <div class="d-flex flex-row justify-content-between mb-3">
         <div class="d-flex flex-column p-3">
