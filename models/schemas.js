@@ -16,9 +16,10 @@ let usersSchema = new mongoose.Schema({
 })
 
 let resSchema = new mongoose.Schema({
-   placeID: {type:String, require: true},
+   place_id: {type:String, require: true},
    name: {type:String, require: true},
    formatted_address: {type:String, require: true},
+   type: {type:String, require: true},
    entryDate: {type:Date, default:Date.now},
 })
 

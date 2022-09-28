@@ -2,28 +2,34 @@
 <span>hi index</span>    
   <div class="index-app-icon"><a href="/">
     <img src="/images/logo2x3.svg"></a></div>
-    <form action="/search" method="POST" class="search-form" id="searchForm">
+    <form action="/save" method="POST" class="search-form" id="searchForm">
+      <!--<form action="/post/createPost" enctype="multipart/form-data" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <div class="mb-3">
+          <label for="caption" class="form-label">Caption</label>
+          <textarea class="form-control" id="caption" name="caption"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="imgUpload" class="form-label">Image</label>
+          <input type="file" class="form-control" id="imageUpload" name="file">
+        </div>
+        <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+      </form>-->
     <div class="input-group mb-3">
-      <input type="text" class="form-control" name="searchInput" id="search_input" placeholder="Type Address..." >
+      <input type="text" class="form-control" name="search_input" id="search_input" placeholder="Type Address..." >
+      <input type="text" class="hide" name="place_id" id="place_id" >
+      <input type="text" class="hide" name="formatted_address" id="formatted_address" >
+      <input type="text" class="hide" name="type" id="type" >
+
       <!--<% if (search != '') { %> value="<%= search %>" <% } %>-->
       <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-heart"></i></button></div>
     </div>
     </form>
-       </div>
-     </div>
     <div class="input-group mb-3" id="map">
       <span>hi map</span></div>
-    <!-- Display geolocation data -->
-    <ul class="geo-data">
-      <li>Full Address: <span id="location"></span></li>
-      <li>Postal Code: <span id="postal_code"></span></li>
-      <li>Country: <span id="country"></span></li>
-      <li>Latitude: <span id="lat"></span></li>
-      <li>Longitude: <span id="lon"></span></li>
-      <li>place ID: <span id="placeID"></span></li>
-
-    </ul>
-
       <script>
         const m = document.getElementById('map');
         function initMap(data) {
@@ -40,7 +46,7 @@
           
           let autocomplete;
           autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-            //types: ['establishment'],
+            types: ['food'],
             componentRestrictions: {
             country: "TW"
             }
@@ -52,12 +58,14 @@
             anchorPoint: new google.maps.Point(0, -29)
             });
             
-            //start of func
-          google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            //moves, create marker when click on new addressin autocomplete
+            //when autocomplete triggers, place_changed triggers, then function 
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
             marker.setVisible(false);
 
             var place = autocomplete.getPlace();
             console.log(place);
+            console.log()
 
           if (!place.geometry) {
             window.alert("Autocomplete's returned place contains no geometry");
@@ -72,7 +80,7 @@
             }
             marker.setIcon(({
                 url: place.icon,
-                size: new google.maps.Size(71, 71),
+                size: new google.maps.Size(68, 68),
                 origin: new google.maps.Point(0, 0),
                 anchor: new google.maps.Point(17, 34),
                 scaledSize: new google.maps.Size(35, 35)
@@ -92,32 +100,17 @@
             infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
             infowindow.open(map, marker);
           
-            // Location details
-            for (var i = 0; i < place.address_components.length; i++) {
-                if(place.address_components[i].types[0] == 'postal_code'){
-                    document.getElementById('postal_code').innerHTML = place.address_components[i].long_name;
-                }
-                if(place.address_components[i].types[0] == 'country'){
-                    document.getElementById('country').innerHTML = place.address_components[i].long_name;
-                }
-            }
             for (var i = 0; i < place.types.length; i++) {
-              console.log(types[i]);
+              console.log(place.types[i]);
             }
-            document.getElementById('location').innerHTML = place.formatted_address;
-            document.getElementById('lat').innerHTML = place.geometry.location.lat();
-            document.getElementById('lon').innerHTML = place.geometry.location.lng();
-            document.getElementById('placeID').innerHTML = place.place_id;
-
+            document.getElementById('formatted_address').value = place.formatted_address;
+            document.getElementById('place_id').value = place.place_id;
+            document.getElementById('type').value = place.types[0];
+            //https://www.codexworld.com/autocomplete-places-search-box-google-maps-javascript-api/
     })
-  };
-
-          
-        
+  }; 
       </script>
-      <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmY6mmgJxQnH8KMsyN6OwF6QPQUOIurIw&libraries=places&callback=initMap"
-    ></script>
+
     <!--<% if (data != null && loggedIn) { data.forEach( item => { %>
     <div class="d-flex flex-row justify-content-between mb-3">
         <div class="d-flex flex-column p-3">

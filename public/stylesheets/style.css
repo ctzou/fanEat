@@ -250,7 +250,9 @@ h2.page-title, h1.page-title {
   font-size: 14px;
 }
 
-
+.hide {
+  display: none;
+}
 @media screen and (max-width: 450px) {
   .card {
       display: flex;

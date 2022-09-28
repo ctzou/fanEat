@@ -6,6 +6,6 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //Main Routes - simplified for now
 router.get("/", indexController.getIndex);
-router.post('/search', indexController.getSearch);
+router.post('/save', indexController.saveRestaurant);
 
 module.exports = router;
