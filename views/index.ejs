@@ -13,6 +13,17 @@
      </div>
     <div class="input-group mb-3" id="map">
       <span>hi map</span></div>
+    <!-- Display geolocation data -->
+    <ul class="geo-data">
+      <li>Full Address: <span id="location"></span></li>
+      <li>Postal Code: <span id="postal_code"></span></li>
+      <li>Country: <span id="country"></span></li>
+      <li>Latitude: <span id="lat"></span></li>
+      <li>Longitude: <span id="lon"></span></li>
+      <li>place ID: <span id="placeID"></span></li>
+
+    </ul>
+
       <script>
         const m = document.getElementById('map');
         function initMap(data) {
@@ -34,12 +45,75 @@
             country: "TW"
             }
           });
+
+          var infowindow = new google.maps.InfoWindow();
+          var marker = new google.maps.Marker({
+            map: map,
+            anchorPoint: new google.maps.Point(0, -29)
+            });
             
+            //start of func
           google.maps.event.addListener(autocomplete, 'place_changed', function () {
-            var near_place = autocomplete.getPlace();
-          });
-          
+            marker.setVisible(false);
+
+            var place = autocomplete.getPlace();
+            console.log(place);
+
+          if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
         }
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(15);
+            }
+            marker.setIcon(({
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(35, 35)
+            }));
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+        
+            var address = '';
+            if (place.address_components) {
+                address = [
+                  (place.address_components[0] && place.address_components[0].short_name || ''),
+                  (place.address_components[1] && place.address_components[1].short_name || ''),
+                  (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+        
+            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+            infowindow.open(map, marker);
+          
+            // Location details
+            for (var i = 0; i < place.address_components.length; i++) {
+                if(place.address_components[i].types[0] == 'postal_code'){
+                    document.getElementById('postal_code').innerHTML = place.address_components[i].long_name;
+                }
+                if(place.address_components[i].types[0] == 'country'){
+                    document.getElementById('country').innerHTML = place.address_components[i].long_name;
+                }
+            }
+            for (var i = 0; i < place.types.length; i++) {
+              console.log(types[i]);
+            }
+            document.getElementById('location').innerHTML = place.formatted_address;
+            document.getElementById('lat').innerHTML = place.geometry.location.lat();
+            document.getElementById('lon').innerHTML = place.geometry.location.lng();
+            document.getElementById('placeID').innerHTML = place.place_id;
+
+    })
+  };
+
+          
+        
       </script>
       <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmY6mmgJxQnH8KMsyN6OwF6QPQUOIurIw&libraries=places&callback=initMap"
