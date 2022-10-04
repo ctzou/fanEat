@@ -1,14 +1,14 @@
 # fanEat
 # Introduction
 
-A Simple ToDo App is built using the MVC Architecture, we have also implemented "authorization" so folx can sign up, customize & personalize the app 
+A Simple Restaurant App built using the MVC Architecture, will further implement "authorization" so folx can sign up, customize & personalize the app 
 
 
 ---
 
 # Objectives
 
-- It's a beginner level app created to understand how MVC concept and logins are added
+- It's a beginner level app created to save restaurant data and further, menu data from individual restaurants
 
 ---
 
