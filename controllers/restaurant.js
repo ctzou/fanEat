@@ -1,9 +1,7 @@
+const { name } = require('ejs');
 const schemas =require('../models/schemas.js');
 
 module.exports={
-    getIndex: function (req, res) {
-        res.render('index', {title: 'Menu Items'})
-    },
     editMenu: async(req,res)=>{
         let session= req.session
 
@@ -91,5 +89,61 @@ module.exports={
             })
             res.redirect('/');
         }
-    }
+    },
+
+    getRestIndex: function (req, res) {
+        res.render('index', {title: fanEat})
+    },
+    getRest: async (req, res) => {
+        let restaurant= schemas.restaurants;
+        let session= req.session
+
+        try {
+          const rest = await restaurant.findById(req.params.id);
+          res.render("rest.ejs", { rest: rest, title: rest.full_name, loggedIn: session.loggedIn, });
+        } catch (err) {
+          console.log(err);
+        }
+      },
+    newRest: async (req, res) => {
+      //save place_Id and create restaurant page
+      let restaurant= schemas.restaurants;
+      let session= req.session;
+
+      try {
+        await restaurant.create({
+          place_id: req.body.place_id,
+          full_name: req.body.full_name,
+          formatted_address: req.body.formatted_address,
+          type: req.body.type,
+        });
+        
+        //let saveRest = await this.newRest.save();
+
+        console.log(req.body);
+
+        res.redirect("/");
+        //console.log('got id');
+        //res.render("post.ejs", { post: post, user: req.user, comments: comments });
+      } catch (err) {
+        console.log(err);
+      }
+
+    },
+    saveRest: async (req, res) => {
+        let restaurant= schemas.restaurants;
+
+        try {
+          await restaurant.findOneAndUpdate(
+            { _id: req.params.id },
+            {
+              $inc: { likes: 1 },
+            }
+          );
+          console.log("Likes +1");
+          res.redirect(`/post/${req.params.id}`);
+        } catch (err) {
+          console.log(err);
+        }
+      },
 }

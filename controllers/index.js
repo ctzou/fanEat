@@ -4,46 +4,71 @@ require("dotenv").config({ path: "./config/.env" });
 
 module.exports={
    getIndex: async(req,res)=>{
-      let menu= schemas.menu;
+      let rest= schemas.restaurants;
       let session= req.session;
       
 
-       let menuResult= await menu.find({})
-       .then((menuData)=>{
-          res.render('index', {title: 'fanEat', data: menuData, search: '', loggedIn: session.loggedIn});
+       let restResult= await rest.find({})
+       .then((restData)=>{
+          res.render('index', {title: 'fanEat', data: restData, search: '', loggedIn: session.loggedIn});
        })
       //res.render("index.ejs");
+      //res.render('index', {title: 'fanEat', data: restData, search: '', loggedIn: session.loggedIn});
    },
-   getSearch: async(req,res)=>{
-      let placeID;
-//should check if in database, return error if not
-//if in database, return page
-
-      //let searchTerm= {name:{$regex: '^'+query, $options: 'i'}}
-      
-      res.render('index', {title: 'FanEat', data: menuData, search: query, loggedIn: session.loggedIn})
-   },
-   saveRestaurant: async (req, res) => {
-      //save place_Id and create restaurant page
-      let restaurant= schemas.restaurants;
-      let session= req.session;
-
+   getPost: async (req, res) => {
       try {
-  
-        await restaurant.create({
-          place_id: req.body.place_id,
-          name: req.body.search_input,
-          formatted_address: req.body.formatted_address,
-          type: req.body.type,
-        });
-        console.log(req.body);
-
-        res.redirect("/");
+        const post = await Post.findById(req.params.id);
+        const comments = await Comment.find({post: req.params.id}).sort({ createdAt: "desc" }).lean();
+        res.render("post.ejs", { post: post, user: req.user, comments: comments });
       } catch (err) {
         console.log(err);
       }
-
     },
+   getSearch: async(req,res)=>{
+      //let placeID;
+//should check if in database, return error if not
+//if in database, return page
+
+   let restaurant = schemas.restaurants;
+   let query = req.body.searchInput;
+   let session = req.session;
+   let qry = {name:{$regex:'^' + q, $options:'i'}};
+   let restData = null;
+
+ 
+   if (query != null) {
+     let restResult = await restaurant.find(qry).then( (data) => {
+       restData = data;
+     });
+   } else {
+     query = 'Search';
+     let restResult = await restaurant.find({}).then( (data) => {
+       restData = data;
+     });
+   }
+      res.render('index', {title: 'FanEat', data: restData, search: query, loggedIn: session.loggedIn})
+   },
+   // saveRestaurant: async (req, res) => {
+   //    //save place_Id and create restaurant page
+   //    let restaurant= schemas.restaurants;
+   //    let session= req.session;
+
+   //    try {
+  
+   //      await restaurant.create({
+   //        place_id: req.body.place_id,
+   //        name: req.body.name,
+   //        formatted_address: req.body.formatted_address,
+   //        type: req.body.type,
+   //      });
+   //      console.log(req.body);
+
+   //      res.redirect("/");
+   //    } catch (err) {
+   //      console.log(err);
+   //    }
+
+   //  },
     /*  createPost: async (req, res) => {
     try {
       // Upload image to cloudinary

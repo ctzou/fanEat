@@ -94,6 +94,13 @@ span.mb-2 {
 h5 span {
     color: #869099
 }
+h5 {
+  color: #ea4853;
+  text-align: center;
+}
+h5:hover {
+  color: #c13642
+}
 
 .footer {
   text-align: center;

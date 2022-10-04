@@ -17,7 +17,7 @@ let usersSchema = new mongoose.Schema({
 
 let resSchema = new mongoose.Schema({
    place_id: {type:String, require: true},
-   name: {type:String, require: true},
+   full_name: {type:String, require: true},
    formatted_address: {type:String, require: true},
    type: {type:String, require: true},
    entryDate: {type:Date, default:Date.now},
@@ -32,7 +32,7 @@ let entreesSchema = new mongoose.Schema({
 
 let menu = mongoose.model('menu', menuSchema, 'menuDB');
 let users = mongoose.model('users', usersSchema, 'usersDB');
-let restaurants = mongoose.model('restaurants', resSchema, 'restaurantDB');
+let restaurants = mongoose.model('restaurants', resSchema, 'restDB');
 let entrees = mongoose.model('entrees', entreesSchema, 'entreeDB');
 
 let mySchemas= {

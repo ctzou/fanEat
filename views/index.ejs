@@ -1,35 +1,30 @@
 <%- include('partials/header.ejs') %>
-<span>hi index</span>    
-  <div class="index-app-icon"><a href="/">
+  <div class="index-app-icon mb-3"><a href="/">
     <img src="/images/logo2x3.svg"></a></div>
-    <form action="/save" method="POST" class="search-form" id="searchForm">
-      <!--<form action="/post/createPost" enctype="multipart/form-data" method="POST">
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title">
-        </div>
-        <div class="mb-3">
-          <label for="caption" class="form-label">Caption</label>
-          <textarea class="form-control" id="caption" name="caption"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="imgUpload" class="form-label">Image</label>
-          <input type="file" class="form-control" id="imageUpload" name="file">
-        </div>
-        <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
-      </form>-->
+    <form action="/rest/new" method="POST" class="search-form" id="searchForm">
+
     <div class="input-group mb-3">
       <input type="text" class="form-control" name="search_input" id="search_input" placeholder="Type Address..." >
       <input type="text" class="hide" name="place_id" id="place_id" >
+      <input type="text" class="hide" name="full_name" id="full_name" >
       <input type="text" class="hide" name="formatted_address" id="formatted_address" >
       <input type="text" class="hide" name="type" id="type" >
 
-      <!--<% if (search != '') { %> value="<%= search %>" <% } %>-->
-      <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-heart"></i></button></div>
+      <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-search"></i></button></div>
     </div>
     </form>
-    <div class="input-group mb-3" id="map">
-      <span>hi map</span></div>
+
+    <!--should require login? only appear on search-->
+
+    <% if (data != null ) { data.forEach( item => { %>
+      <div class="d-flex flex-row justify-content-between mb-2">
+            <div class="text-center container-fluid pt-2">
+              <a href="/rest/<%= item._id %>"><h5><%= item.full_name %></h5></a>
+            </div>
+        </div>
+        <% }); } %>
+
+    <div class="input-group mb-3 mt-3" id="map"></div>
       <script>
         const m = document.getElementById('map');
         function initMap(data) {
@@ -65,7 +60,6 @@
 
             var place = autocomplete.getPlace();
             console.log(place);
-            console.log()
 
           if (!place.geometry) {
             window.alert("Autocomplete's returned place contains no geometry");
@@ -103,13 +97,20 @@
             for (var i = 0; i < place.types.length; i++) {
               console.log(place.types[i]);
             }
-            document.getElementById('formatted_address').value = place.formatted_address;
             document.getElementById('place_id').value = place.place_id;
+            document.getElementById('full_name').value = place.name;
+            document.getElementById('formatted_address').value = place.formatted_address;
             document.getElementById('type').value = place.types[0];
+            //document.getElementById('lat').innerHTML = place.geometry.location.lat();
+            //document.getElementById('lon').innerHTML = place.geometry.location.lng();
             //https://www.codexworld.com/autocomplete-places-search-box-google-maps-javascript-api/
     })
   }; 
       </script>
+
+              <script async defer
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmY6mmgJxQnH8KMsyN6OwF6QPQUOIurIw&libraries=places&callback=initMap"
+              ></script>
 
     <!--<% if (data != null && loggedIn) { data.forEach( item => { %>
     <div class="d-flex flex-row justify-content-between mb-3">
