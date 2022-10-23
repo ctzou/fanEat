@@ -1,14 +1,14 @@
 # fanEat
 # Introduction
 
-A Simple Restaurant App built using the MVC Architecture, will further implement "authorization" so folx can sign up, customize & personalize the app 
+A Restaurant App built using the MVC Architecture, will further implement "authorization" so folx can sign up, customize & personalize the app.
 
 
 ---
 
 # Objectives
 
-- It's a beginner level app created to save restaurant data and further, menu data from individual restaurants
+- It's a beginner level app created to save restaurant data and further, menu data from individual restaurants.
 
 ---
 

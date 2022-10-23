@@ -24,7 +24,7 @@ let resSchema = new mongoose.Schema({
 })
 
 let entreesSchema = new mongoose.Schema({
-   placeID: {type:String, require: true},
+   res: {type:mongoose.Schema.Types.ObjectId, ref: "restaurants"},
    cnTradName:{type:String, require: true},
    enTradName:{type:String, require: true},
    entryDate: {type:Date, default:Date.now},
