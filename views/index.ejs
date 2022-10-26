@@ -1,7 +1,7 @@
 <%- include('partials/header.ejs') %>
   <div class="index-app-icon mb-3"><a href="/">
     <img src="/images/logo2x3.svg"></a></div>
-    <form action="/rest/new" method="POST" class="search-form" id="searchForm">
+    <form action="/restaurant/new" method="POST" class="search-form" id="searchForm">
 
     <div class="input-group mb-3">
       <input type="text" class="form-control" name="search_input" id="search_input" placeholder="Type Address..." >
@@ -19,12 +19,12 @@
     <% if (data != null ) { data.forEach( item => { %>
       <div class="d-flex flex-row justify-content-between mb-2">
             <div class="text-center container-fluid pt-2">
-              <a href="/rest/<%= item._id %>"><h5><%= item.full_name %></h5></a>
+              <a href="/restaurant/<%= item._id %>"><h5><%= item.full_name %></h5></a>
             </div>
         </div>
         <% }); } %>
 
-    <div class="input-group mb-3 mt-3" id="map"></div>
+    <div class="input-group my-3" id="map"></div>
       <script>
         const m = document.getElementById('map');
         function initMap(data) {

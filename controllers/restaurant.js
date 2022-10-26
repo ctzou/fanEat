@@ -96,15 +96,17 @@ module.exports={
   },
   getRest: async (req, res) => {
     let Restaurant= schemas.restaurants;
+    //const comments = await Comment.find({post: req.params.id}).sort({ createdAt: "desc" }).lean();
+
     let Entree= schemas.entrees;
     let session= req.session;
 
     try {
       //const comments = await Comment.find({post: req.params.id}).sort({ createdAt: "desc" }).lean();
       const rest = await Restaurant.findById(req.params.id);
-      const entrees = await Entree.find({rest: req.params.id});
-      console.log(entrees);
-      res.render("rest.ejs", { rest: rest, title: rest.full_name, loggedIn: session.loggedIn, });
+      const entrees = await Entree.find({res: req.params.id});
+      //console.log(req.params.id)
+      res.render("rest.ejs", { rest: rest, entrees: entrees, title: rest.full_name, loggedIn: session.loggedIn, });
     } catch (err) {
       console.log(err);
     }
@@ -146,23 +148,23 @@ module.exports={
         }
       );
       console.log("Likes +1");
-      res.redirect(`/post/${req.params.id}`);
+      res.redirect(`/restaurant/${req.params.id}`);
     } catch (err) {
       console.log(err);
     }
   },
   newEntree: async (req, res) => {
     let entree= schemas.entrees;
+    let session= req.session;
 
     try {
+      console.log(req)
       await entree.create({
         res: req.params.id,
-        cnTradName:'',
-        enTradName: '',
+        cnTradName:req.body.cnTrad_input,
+        enName: req.body.en_input,
       });
-
       console.log("Entree has been added!");
-      res.redirect("/post/"+req.params.id);
     } catch (err) {
       console.log(err);
     }

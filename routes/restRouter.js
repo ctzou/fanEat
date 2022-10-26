@@ -15,6 +15,7 @@ router.get("/:id", restController.getRest);
 
 router.post('/new', restController.newRest);
 router.post('/save', restController.saveRest);
+router.post('/newEntree/:id', restController.newEntree);
 
 
 
