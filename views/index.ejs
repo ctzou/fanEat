@@ -107,7 +107,30 @@
     })
   }; 
       </script>
-
+      <script>
+        // Imports the Google Cloud client library
+        const {Translate} = require('@google-cloud/translate').v2;
+      
+        // Creates a client
+        const translate = new Translate();
+      
+        /**
+         * TODO(developer): Uncomment the following line before running the sample.
+         */
+        const target = 'en';
+      
+        async function listLanguagesWithTarget() {
+          // Lists available translation language with their names in a target language
+          const [languages] = await translate.getLanguages(target);
+      
+          console.log('Languages:');
+          languages.forEach(language => console.log(language));
+        }
+      
+        listLanguagesWithTarget();
+        console.log('script accesed')
+      </script>
+      
       <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmY6mmgJxQnH8KMsyN6OwF6QPQUOIurIw&libraries=places&callback=initMap"
       ></script>
